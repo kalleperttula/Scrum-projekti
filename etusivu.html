@@ -6,15 +6,29 @@
     <title>Kalenteri</title>
 </head>
 <body>
+     <header>
+        <nav>
+            <ul>
+                <!--Tähän voi lisätä muita sivuja-->
+                <a href="#">Etusivu</a>
+                <a href="#">Tietoa</a>
+                <a href="#">Yhteystiedot</a>
+        
+            </ul>
+        </nav>
+    </header>
     <form action="#" method="post">
         <label for="nimi"></label>
         <input type="text" id="nimi" name="nimi" placeholder="Tapahtuman nimi" required>
+        <br>
 
         <label for="aika"></label>
         <input type="datetime-local" id="aika" name="aika" placeholder="Päivämäärä ja kellon aika" required>
+        <br>
 
         <label for="kuvaus"></label>
         <textarea id="kuvaus" name="kuvaus" rows="4" placeholder="Anna kuvaus tai lisää muistiinpanoja"></textarea>
+        <br>
 
         <label for="kategoria"></label>
         <select id="kategoria" name="kategoria" required>
@@ -25,6 +39,7 @@
             <option value="juhla">Juhla</option>
             <option value="muu">Muu</option>
         </select>
+        <br>
 
         <button type="submit">Tallenna tapahtuma</button>
   
