@@ -6,6 +6,30 @@
     <title>Kalenteri</title>
 </head>
 <body>
+    <form action="#" method="post">
+        <label for="nimi"></label>
+        <input type="text" id="nimi" name="nimi" placeholder="Tapahtuman nimi" required>
+
+        <label for="aika"></label>
+        <input type="datetime-local" id="aika" name="aika" placeholder="Päivämäärä ja kellon aika" required>
+
+        <label for="kuvaus"></label>
+        <textarea id="kuvaus" name="kuvaus" rows="4" placeholder="Anna kuvaus tai lisää muistiinpanoja"></textarea>
+
+        <label for="kategoria"></label>
+        <select id="kategoria" name="kategoria" required>
+            <option value="" disabled selected>Valitse kategoria</option>
+            <option value="koulu">Koulu</option>
+            <option value="työ">Työ</option>
+            <option value="harrastus">Harrastus</option>
+            <option value="juhla">Juhla</option>
+            <option value="muu">Muu</option>
+        </select>
+
+        <button type="submit">Tallenna tapahtuma</button>
+  
+
+    </form>
     
 </body>
 </html>
