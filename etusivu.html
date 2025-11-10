@@ -4,47 +4,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kalenteri</title>
+    <link rel="stylesheet" href="kalenteri.css">
 </head>
 <body>
-     <header>
-        <nav>
-            <ul>
-                <!--Tähän voi lisätä muita sivuja-->
-                <a href="#">Etusivu</a>
-                <a href="#">Tietoa</a>
-                <a href="#">Yhteystiedot</a>
-        
-            </ul>
-        </nav>
-    </header>
-    <form action="#" method="post">
-        <label for="nimi"></label>
-        <input type="text" id="nimi" name="nimi" placeholder="Tapahtuman nimi" required>
-        <br>
+  <header>
+    <nav>
+      <ul>
+        <a href="#">Etusivu</a>
+        <a href="#">Tietoa</a>
+        <a href="#">Yhteystiedot</a>
+      </ul>
+    </nav>
+  </header>
 
-        <label for="aika"></label>
-        <input type="datetime-local" id="aika" name="aika" placeholder="Päivämäärä ja kellon aika" required>
-        <br>
+  <h2>Muistutuskalenteri</h2>
 
-        <label for="kuvaus"></label>
-        <textarea id="kuvaus" name="kuvaus" rows="4" placeholder="Anna kuvaus tai lisää muistiinpanoja"></textarea>
-        <br>
+  <div style="text-align:center; margin-bottom:10px;">
+    <label for="month">Kuukausi:</label>
+    <select id="month">
+      <option value="0">Tammikuu</option>
+      <option value="1">Helmikuu</option>
+      <option value="2">Maaliskuu</option>
+      <option value="3">Huhtikuu</option>
+      <option value="4">Toukokuu</option>
+      <option value="5">Kesäkuu</option>
+      <option value="6">Heinäkuu</option>
+      <option value="7">Elokuu</option>
+      <option value="8">Syyskuu</option>
+      <option value="9">Lokakuu</option>
+      <option value="10" selected>Marraskuu</option>
+      <option value="11">Joulukuu</option>
+    </select>
 
-        <label for="kategoria"></label>
-        <select id="kategoria" name="kategoria" required>
-            <option value="" disabled selected>Valitse kategoria</option>
-            <option value="koulu">Koulu</option>
-            <option value="työ">Työ</option>
-            <option value="harrastus">Harrastus</option>
-            <option value="juhla">Juhla</option>
-            <option value="muu">Muu</option>
-        </select>
-        <br>
+    <label for="year">Vuosi:</label>
+    <select id="year"></select>
 
-        <button type="submit">Tallenna tapahtuma</button>
-  
+    <button onclick="updateCalendar()">Näytä kalenteri</button>
+  </div>
 
-    </form>
-    
+  <form id="eventForm">
+    <input type="text" id="nimi" placeholder="Tapahtuman nimi" required>
+    <input type="datetime-local" id="aika" required>
+    <textarea id="kuvaus" rows="4" placeholder="Anna kuvaus tai lisää muistiinpanoja"></textarea>
+    <select id="kategoria" required>
+      <option value="" disabled selected>Valitse kategoria</option>
+      <option value="koulu">Koulu</option>
+      <option value="työ">Työ</option>
+      <option value="harrastus">Harrastus</option>
+      <option value="juhla">Juhla</option>
+      <option value="muu">Muu</option>
+    </select>
+    <button type="submit">Tallenna tapahtuma</button>
+  </form>
+
+  <div class="calendar" id="calendar"></div>
+
+  <div class="overlay" id="overlay"></div>
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h3>Lisää muistutus</h3>
+      <p id="selectedDate"></p>
+      <input type="text" id="reminderInput" placeholder="Kirjoita muistutus">
+      <div>
+        <button onclick="saveReminder()">Tallenna</button>
+        <button onclick="closePopup()">Peruuta</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("eventForm");
+    const calendar = document.getElementById("calendar");
+    const events = JSON.parse(localStorage.getItem("kalenteriTapahtumat")) || [];
+
+    const yearSelect = document.getElementById("year");
+    const currentYear = new Date().getFullYear();
+    for (let y = currentYear - 5; y <= currentYear + 5; y++) {
+      const opt = document.createElement("option");
+      opt.value = y;
+      opt.textContent = y;
+      if (y === 2025) opt.selected = true;
+      yearSelect.appendChild(opt);
+    }
+
+    function generateCalendar(year, month) {
+      calendar.innerHTML = "";
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      for (let day = 1; day <= daysInMonth; day++) {
+        const cell = document.createElement("div");
+        cell.className = "day";
+        cell.innerHTML = `<strong>${day}.${month + 1}.${year}</strong><div id="day-${year}-${month}-${day}"></div>`;
+        calendar.appendChild(cell);
+      }
+
+      events.forEach(event => {
+        const eventDate = new Date(event.aika);
+        if (eventDate.getFullYear() === year && eventDate.getMonth() === month) {
+          const day = eventDate.getDate();
+          const container = document.getElementById(`day-${year}-${month}-${day}`);
+          if (container) {
+            const item = document.createElement("div");
+            item.innerHTML = `<em>${event.nimi}</em><br>${event.kuvaus}<br><small>${event.kategoria}</small>`;
+            container.appendChild(item);
+          }
+        }
+      });
+    }
+
+    function updateCalendar() {
+      const selectedYear = parseInt(document.getElementById("year").value);
+      const selectedMonth = parseInt(document.getElementById("month").value);
+      generateCalendar(selectedYear, selectedMonth);
+    }
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const uusiTapahtuma = {
+        nimi: form.nimi.value,
+        aika: form.aika.value,
+        kuvaus: form.kuvaus.value,
+        kategoria: form.kategoria.value
+      };
+      events.push(uusiTapahtuma);
+      localStorage.setItem("kalenteriTapahtumat", JSON.stringify(events));
+      updateCalendar();
+      form.reset();
+    });
+
+    updateCalendar(); // Näytä aloituskalenteri
+  </script>
 </body>
 </html>
