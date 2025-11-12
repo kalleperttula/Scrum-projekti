@@ -142,21 +142,21 @@
     document.getElementById('popup').style.display = 'none';
   }
 
-  // --- Ilmoituspopup 24h tapahtumille ---
+  
   function showNotificationPopup(message) {
     const titleEl = document.querySelector('#popup .popup-content h3');
     const dateEl = document.getElementById('selectedDate');
     const inputEl = document.getElementById('reminderInput');
     const btnContainer = inputEl.nextElementSibling;
 
-    // Muokataan popup ilmoitusta varten
+    
     titleEl.textContent = 'Muistutus';
     dateEl.textContent = message;
     inputEl.style.display = 'none';
     btnContainer.innerHTML = '<button id="notifOk">OK</button>';
 
     document.getElementById('notifOk').onclick = () => {
-      // Palautetaan popup alkuperäiseen tilaan
+      
       titleEl.textContent = 'Lisää muistutus';
       dateEl.textContent = '';
       inputEl.value = '';
@@ -171,7 +171,7 @@
     openPopup();
   }
 
-  // --- 24h tarkistus ---
+  
   function checkUpcomingEvents() {
     const now = new Date();
     const next24h = new Date(now.getTime() + 24 * 60 * 60 * 1000);
@@ -185,14 +185,14 @@
     });
   }
 
-  // --- Reminderin tallennus (jos käytät popupia manuaalisesti) ---
+  
   function saveReminder() {
     const text = document.getElementById('reminderInput').value.trim();
     if (!text) return;
     closePopup();
   }
 
-  // --- Lomakkeen tallennus ---
+  
   form.addEventListener("submit", function(e) {
     e.preventDefault();
     const uusiTapahtuma = {
@@ -205,11 +205,11 @@
     localStorage.setItem("kalenteriTapahtumat", JSON.stringify(events));
     updateCalendar();
     form.reset();
-    checkUpcomingEvents(); // tarkistetaan heti tallennuksen jälkeen
+    checkUpcomingEvents(); 
   });
 
-  updateCalendar(); // Näytä aloituskalenteri
-  checkUpcomingEvents(); // Tarkista heti sivun latauksessa
+  updateCalendar(); 
+  checkUpcomingEvents(); 
 </script>
 
 
