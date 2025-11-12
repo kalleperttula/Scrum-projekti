@@ -64,9 +64,7 @@ input[type="text"], input[type="datetime-local"], textarea, select {
 button {
   margin-right: 10px;
 }
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
+
 header {
   background-color: #87CEFA; 
   color: white;
@@ -95,7 +93,7 @@ header nav ul li a {
 
 header nav ul li a:hover {
   color: #00008B; 
-
+}
 
 footer {
   background-color: #000;
