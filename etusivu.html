@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="stryles.css">
 </head>
 <body>
+    <!--header-->
   <header>
     <nav>
       <ul>
@@ -18,7 +19,7 @@
   </header>
 
 
-
+  <!--Formi-->
   <form id="eventForm">
     <input type="text" id="nimi" placeholder="Tapahtuman nimi" required>
     <input type="datetime-local" id="aika" required>
@@ -33,7 +34,7 @@
     </select>
     <button type="submit">Tallenna tapahtuma</button>
   </form>
-
+  <!--Kalenterin kuukauden vaihto-->
   <h2>Muistutuskalenteri</h2>
 
     <div style="text-align:center; margin-bottom:10px;">
@@ -58,7 +59,7 @@
 
         <button onclick="updateCalendar()">Näytä kalenteri</button>
     </div>
-
+    <!--Kalenteri-->
   <div class="calendar" id="calendar"></div>
 
   <div class="overlay" id="overlay"></div>
@@ -84,7 +85,7 @@
       <a href="#">Ota yhteyttä</a>
     </p>
   </footer>
-
+  <!--kalenterin scripti-->
   <script>
     const form = document.getElementById("eventForm");
     const calendar = document.getElementById("calendar");
