@@ -64,6 +64,39 @@ input[type="text"], input[type="datetime-local"], textarea, select {
 button {
   margin-right: 10px;
 }
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+header {
+  background-color: #87CEFA; 
+  color: white;
+  padding: 15px 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul li {
+  margin: 0 15px;
+}
+
+header nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+header nav ul li a:hover {
+  color: #00008B; 
+
+
 footer {
   background-color: #000;
   color: #f0f0f0;
