@@ -17,30 +17,7 @@
     </nav>
   </header>
 
-  <h2>Muistutuskalenteri</h2>
-
-  <div style="text-align:center; margin-bottom:10px;">
-    <label for="month">Kuukausi:</label>
-    <select id="month">
-      <option value="0">Tammikuu</option>
-      <option value="1">Helmikuu</option>
-      <option value="2">Maaliskuu</option>
-      <option value="3">Huhtikuu</option>
-      <option value="4">Toukokuu</option>
-      <option value="5">Kesäkuu</option>
-      <option value="6">Heinäkuu</option>
-      <option value="7">Elokuu</option>
-      <option value="8">Syyskuu</option>
-      <option value="9">Lokakuu</option>
-      <option value="10" selected>Marraskuu</option>
-      <option value="11">Joulukuu</option>
-    </select>
-
-    <label for="year">Vuosi:</label>
-    <select id="year"></select>
-
-    <button onclick="updateCalendar()">Näytä kalenteri</button>
-  </div>
+>
 
   <form id="eventForm">
     <input type="text" id="nimi" placeholder="Tapahtuman nimi" required>
@@ -57,6 +34,31 @@
     <button type="submit">Tallenna tapahtuma</button>
   </form>
 
+  <h2>Muistutuskalenteri</h2>
+
+    <div style="text-align:center; margin-bottom:10px;">
+        <label for="month">Kuukausi:</label>
+        <select id="month">
+            <option value="0">Tammikuu</option>
+            <option value="1">Helmikuu</option>
+            <option value="2">Maaliskuu</option>
+            <option value="3">Huhtikuu</option>
+            <option value="4">Toukokuu</option>
+            <option value="5">Kesäkuu</option>
+            <option value="6">Heinäkuu</option>
+            <option value="7">Elokuu</option>
+            <option value="8">Syyskuu</option>
+            <option value="9">Lokakuu</option>
+            <option value="10" selected>Marraskuu</option>
+            <option value="11">Joulukuu</option>
+        </select>
+
+        <label for="year">Vuosi:</label>
+        <select id="year"></select>
+
+        <button onclick="updateCalendar()">Näytä kalenteri</button>
+    </div>
+
   <div class="calendar" id="calendar"></div>
 
   <div class="overlay" id="overlay"></div>
@@ -71,6 +73,7 @@
       </div>
     </div>
   </div>
+
   <!-- FOOTTERI -->
   <footer>
     <p>&copy; 2025 Muistutuskalenteri.</p>
@@ -81,6 +84,7 @@
       <a href="#">Ota yhteyttä</a>
     </p>
   </footer>
+  
   <script>
     const form = document.getElementById("eventForm");
     const calendar = document.getElementById("calendar");
