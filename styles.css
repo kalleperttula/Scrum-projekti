@@ -1,0 +1,149 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+header nav ul a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #333;
+}
+h2 {
+  text-align: center;
+  margin: 20px 0;
+}
+.calendar {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.day {
+  border: 1px solid #ccc;
+  padding: 10px;
+  min-height: 100px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.day:hover {
+  background-color: #f0f0f0;
+}
+.popup, .overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+.overlay {
+  background: rgba(0,0,0,0.5);
+  z-index: 5;
+}
+.popup-content {
+  background: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  z-index: 10;
+  max-width: 300px;
+  width: 90%;
+}
+input[type="text"], input[type="datetime-local"], textarea, select {
+  width: 100%;
+  padding: 5px;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
+button {
+  margin-right: 10px;
+}
+
+header {
+  background-color: #87CEFA; 
+  color: white;
+  padding: 15px 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul li {
+  margin: 0 15px;
+}
+
+header nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+header nav ul li a:hover {
+  color: #00008B; 
+}
+
+footer {
+  background-color: #000;
+  color: #f0f0f0;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  font-size: 0.9em;
+  border-top: 2px solid #222;
+}
+/*Pop up tyylit*/
+.overlay {
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(3px); 
+}
+
+.popup-content {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 10px; 
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3); 
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out; 
+}
+
+.popup-content h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.popup-content button {
+  background-color: #87CEFA; 
+  border: none;
+  padding: 8px 15px;
+  margin: 10px 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.popup-content button:hover {
+  background-color: #4682B4; 
+  color: #fff;
+}
+
+
+@keyframes fadeIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
