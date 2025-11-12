@@ -64,3 +64,12 @@ input[type="text"], input[type="datetime-local"], textarea, select {
 button {
   margin-right: 10px;
 }
+footer {
+  background-color: #000;
+  color: #f0f0f0;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  font-size: 0.9em;
+  border-top: 2px solid #222;
+}
