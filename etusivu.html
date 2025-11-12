@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kalenteri</title>
-    <link rel="stylesheet" href="stryles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!--header-->
-  <header>
-    <nav>
-      <ul>
-        <a href="#">Etusivu</a>
-        <a href="#">Tietoa</a>
-        <a href="#">Yhteystiedot</a>
-      </ul>
-    </nav>
-  </header>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Etusivu</a></li>
+                <li><a href="#">Tietoa</a></li>
+                <li><a href="#">Yhteystiedot</a></li>
+            </ul>
+        </nav>
+    </header>
+
 
 
   <!--Formi-->
@@ -87,65 +88,130 @@
   </footer>
   <!--kalenterin scripti-->
   <script>
-    const form = document.getElementById("eventForm");
-    const calendar = document.getElementById("calendar");
-    const events = JSON.parse(localStorage.getItem("kalenteriTapahtumat")) || [];
+  const form = document.getElementById("eventForm");
+  const calendar = document.getElementById("calendar");
+  const events = JSON.parse(localStorage.getItem("kalenteriTapahtumat")) || [];
 
-    const yearSelect = document.getElementById("year");
-    const currentYear = new Date().getFullYear();
-    for (let y = currentYear - 5; y <= currentYear + 5; y++) {
-      const opt = document.createElement("option");
-      opt.value = y;
-      opt.textContent = y;
-      if (y === 2025) opt.selected = true;
-      yearSelect.appendChild(opt);
+  const yearSelect = document.getElementById("year");
+  const currentYear = new Date().getFullYear();
+  for (let y = currentYear - 5; y <= currentYear + 5; y++) {
+    const opt = document.createElement("option");
+    opt.value = y;
+    opt.textContent = y;
+    if (y === 2025) opt.selected = true;
+    yearSelect.appendChild(opt);
+  }
+
+  function generateCalendar(year, month) {
+    calendar.innerHTML = "";
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    for (let day = 1; day <= daysInMonth; day++) {
+      const cell = document.createElement("div");
+      cell.className = "day";
+      cell.innerHTML = `<strong>${day}.${month + 1}.${year}</strong><div id="day-${year}-${month}-${day}"></div>`;
+      calendar.appendChild(cell);
     }
 
-    function generateCalendar(year, month) {
-      calendar.innerHTML = "";
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-      for (let day = 1; day <= daysInMonth; day++) {
-        const cell = document.createElement("div");
-        cell.className = "day";
-        cell.innerHTML = `<strong>${day}.${month + 1}.${year}</strong><div id="day-${year}-${month}-${day}"></div>`;
-        calendar.appendChild(cell);
-      }
-
-      events.forEach(event => {
-        const eventDate = new Date(event.aika);
-        if (eventDate.getFullYear() === year && eventDate.getMonth() === month) {
-          const day = eventDate.getDate();
-          const container = document.getElementById(`day-${year}-${month}-${day}`);
-          if (container) {
-            const item = document.createElement("div");
-            item.innerHTML = `<em>${event.nimi}</em><br>${event.kuvaus}<br><small>${event.kategoria}</small>`;
-            container.appendChild(item);
-          }
+    events.forEach(event => {
+      const eventDate = new Date(event.aika);
+      if (eventDate.getFullYear() === year && eventDate.getMonth() === month) {
+        const day = eventDate.getDate();
+        const container = document.getElementById(`day-${year}-${month}-${day}`);
+        if (container) {
+          const item = document.createElement("div");
+          item.innerHTML = `<em>${event.nimi}</em><br>${event.kuvaus}<br><small>${event.kategoria}</small>`;
+          container.appendChild(item);
         }
-      });
-    }
-
-    function updateCalendar() {
-      const selectedYear = parseInt(document.getElementById("year").value);
-      const selectedMonth = parseInt(document.getElementById("month").value);
-      generateCalendar(selectedYear, selectedMonth);
-    }
-
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-      const uusiTapahtuma = {
-        nimi: form.nimi.value,
-        aika: form.aika.value,
-        kuvaus: form.kuvaus.value,
-        kategoria: form.kategoria.value
-      };
-      events.push(uusiTapahtuma);
-      localStorage.setItem("kalenteriTapahtumat", JSON.stringify(events));
-      updateCalendar();
-      form.reset();
+      }
     });
+  }
 
-    updateCalendar(); // Näytä aloituskalenteri
-  </script>
+  function updateCalendar() {
+    const selectedYear = parseInt(document.getElementById("year").value);
+    const selectedMonth = parseInt(document.getElementById("month").value);
+    generateCalendar(selectedYear, selectedMonth);
+  }
+
+  // --- Popupin hallinta ---
+  function openPopup() {
+    document.getElementById('overlay').style.display = 'flex';
+    document.getElementById('popup').style.display = 'flex';
+  }
+  function closePopup() {
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('popup').style.display = 'none';
+  }
+
+  // --- Ilmoituspopup 24h tapahtumille ---
+  function showNotificationPopup(message) {
+    const titleEl = document.querySelector('#popup .popup-content h3');
+    const dateEl = document.getElementById('selectedDate');
+    const inputEl = document.getElementById('reminderInput');
+    const btnContainer = inputEl.nextElementSibling;
+
+    // Muokataan popup ilmoitusta varten
+    titleEl.textContent = 'Muistutus';
+    dateEl.textContent = message;
+    inputEl.style.display = 'none';
+    btnContainer.innerHTML = '<button id="notifOk">OK</button>';
+
+    document.getElementById('notifOk').onclick = () => {
+      // Palautetaan popup alkuperäiseen tilaan
+      titleEl.textContent = 'Lisää muistutus';
+      dateEl.textContent = '';
+      inputEl.value = '';
+      inputEl.style.display = '';
+      btnContainer.innerHTML = `
+        <button onclick="saveReminder()">Tallenna</button>
+        <button onclick="closePopup()">Peruuta</button>
+      `;
+      closePopup();
+    };
+
+    openPopup();
+  }
+
+  // --- 24h tarkistus ---
+  function checkUpcomingEvents() {
+    const now = new Date();
+    const next24h = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+
+    events.forEach(event => {
+      const eventDate = new Date(event.aika);
+      if (eventDate > now && eventDate <= next24h) {
+        const when = eventDate.toLocaleString();
+        showNotificationPopup(`"${event.nimi}" on tulossa ${when}`);
+      }
+    });
+  }
+
+  // --- Reminderin tallennus (jos käytät popupia manuaalisesti) ---
+  function saveReminder() {
+    const text = document.getElementById('reminderInput').value.trim();
+    if (!text) return;
+    closePopup();
+  }
+
+  // --- Lomakkeen tallennus ---
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const uusiTapahtuma = {
+      nimi: form.nimi.value,
+      aika: form.aika.value,
+      kuvaus: form.kuvaus.value,
+      kategoria: form.kategoria.value
+    };
+    events.push(uusiTapahtuma);
+    localStorage.setItem("kalenteriTapahtumat", JSON.stringify(events));
+    updateCalendar();
+    form.reset();
+    checkUpcomingEvents(); // tarkistetaan heti tallennuksen jälkeen
+  });
+
+  updateCalendar(); // Näytä aloituskalenteri
+  checkUpcomingEvents(); // Tarkista heti sivun latauksessa
+</script>
+
+
 </body>
 </html>
