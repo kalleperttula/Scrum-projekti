@@ -87,7 +87,7 @@
     </p>
   </footer>
   <!--kalenterin scripti-->
-  <script>
+<script>
   const form = document.getElementById("eventForm");
   const calendar = document.getElementById("calendar");
   const events = JSON.parse(localStorage.getItem("kalenteriTapahtumat")) || [];
@@ -119,7 +119,12 @@
         const container = document.getElementById(`day-${year}-${month}-${day}`);
         if (container) {
           const item = document.createElement("div");
-          item.innerHTML = `<em>${event.nimi}</em><br>${event.kuvaus}<br><small>${event.kategoria}</small>`;
+          item.innerHTML = `
+            <em>${event.nimi}</em><br>
+            ${event.kuvaus}<br>
+            <small>${event.kategoria}</small><br>
+            <button onclick="deleteEvent('${event.aika}')">Poista</button>
+          `;
           container.appendChild(item);
         }
       }
@@ -132,31 +137,37 @@
     generateCalendar(selectedYear, selectedMonth);
   }
 
-  // --- Popupin hallinta ---
+  function deleteEvent(aika) {
+    const index = events.findIndex(event => event.aika === aika);
+    if (index !== -1) {
+      events.splice(index, 1);
+      localStorage.setItem("kalenteriTapahtumat", JSON.stringify(events));
+      updateCalendar();
+    }
+  }
+
   function openPopup() {
     document.getElementById('overlay').style.display = 'flex';
     document.getElementById('popup').style.display = 'flex';
   }
+
   function closePopup() {
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('popup').style.display = 'none';
   }
 
-  
   function showNotificationPopup(message) {
     const titleEl = document.querySelector('#popup .popup-content h3');
     const dateEl = document.getElementById('selectedDate');
     const inputEl = document.getElementById('reminderInput');
     const btnContainer = inputEl.nextElementSibling;
 
-    
     titleEl.textContent = 'Muistutus';
     dateEl.textContent = message;
     inputEl.style.display = 'none';
     btnContainer.innerHTML = '<button id="notifOk">OK</button>';
 
     document.getElementById('notifOk').onclick = () => {
-      
       titleEl.textContent = 'Lisää muistutus';
       dateEl.textContent = '';
       inputEl.value = '';
@@ -171,7 +182,6 @@
     openPopup();
   }
 
-  
   function checkUpcomingEvents() {
     const now = new Date();
     const next24h = new Date(now.getTime() + 24 * 60 * 60 * 1000);
@@ -185,14 +195,12 @@
     });
   }
 
-  
   function saveReminder() {
     const text = document.getElementById('reminderInput').value.trim();
     if (!text) return;
     closePopup();
   }
 
-  
   form.addEventListener("submit", function(e) {
     e.preventDefault();
     const uusiTapahtuma = {
@@ -205,12 +213,13 @@
     localStorage.setItem("kalenteriTapahtumat", JSON.stringify(events));
     updateCalendar();
     form.reset();
-    checkUpcomingEvents(); 
+    checkUpcomingEvents();
   });
 
-  updateCalendar(); 
-  checkUpcomingEvents(); 
+  updateCalendar();
+  checkUpcomingEvents();
 </script>
+
 
 
 </body>
