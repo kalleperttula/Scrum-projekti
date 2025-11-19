@@ -1,0 +1,15 @@
+<!--Lataa xampp ja käynnistä apache ja MYsql, mene phpmyadminiin ja luo sinne alla olevalla koodilla uusi database jonka jälkeen voit lisätä kansion resurssien hallinnan kautta Etsi ensin xampp kansio > sitten HTdocs kansio johon lisäät ladatun kansion jonka jälkeen pääset tällä linkillä http://localhost/scrum-projekti/etusivu.php nettisivulle-->
+
+<!--CREATE DATABASE IF NOT EXISTS kalenteri
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_general_ci;
+
+USE kalenteri;
+
+CREATE TABLE IF NOT EXISTS tapahtumat (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nimi VARCHAR(255) NOT NULL,
+  aika DATETIME NOT NULL,
+  kuvaus TEXT,
+  kategoria VARCHAR(50) NOT NULL
+); -->
