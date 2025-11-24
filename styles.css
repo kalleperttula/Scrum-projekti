@@ -30,9 +30,11 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-radius: 8px;
 }
 .day:hover {
   background-color: #f0f0f0;
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
 }
 .popup, .overlay {
   position: fixed;
