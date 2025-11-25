@@ -19,6 +19,7 @@
   </header>
 
   <!--Formi-->
+  <h2>Tapahtuma</h2>
   <form id="eventForm" action="save_event.php" method="post">
     <input type="text" name="nimi" placeholder="Tapahtuman nimi" required>
     <input type="datetime-local" name="aika" required>
@@ -37,7 +38,7 @@
  
   <h2>Muistutuskalenteri</h2>
   <!--kalenteri muutto-->
-  <div style="text-align:center; margin-bottom:10px;">
+  <div style="text-align:center; margin-bottom:10px; margin: 0 25%;">
     <label for="month">Kuukausi:</label>
     <select id="month">
       <option value="0">Tammikuu</option>
@@ -57,7 +58,7 @@
     <label for="year">Vuosi:</label>
     <select id="year"></select>
 
-    <button id="showBtn">Näytä kalenteri</button>
+    <button class="showBtn" id="showBtn">Näytä kalenteri</button>
   </div>
 
   <div class="calendar" id="calendar"></div>
