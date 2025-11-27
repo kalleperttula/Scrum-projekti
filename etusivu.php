@@ -233,4 +233,3 @@ function checkUpcomingEvents() {
   </script>
 </body>
 </html>
-
