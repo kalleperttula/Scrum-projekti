@@ -18,23 +18,28 @@ h2 {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
+  gap: 10px;
   padding: 10px;
   box-sizing: border-box;
+  max-width: 900px;
+  margin: 0 auto;
 }
 .day {
   border: 1px solid #ccc;
-  padding: 10px;
-  min-height: 100px;
+  padding: 12px;
+  min-height: 120px;
   background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 8px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  transition: 0.2s;
 }
 .day:hover {
   background-color: #f0f0f0;
   box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
 }
 .popup, .overlay {
   position: fixed;
