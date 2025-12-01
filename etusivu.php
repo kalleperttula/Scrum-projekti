@@ -38,7 +38,7 @@
  
   <h2>Muistutuskalenteri</h2>
   <!--kalenteri muutto-->
-  <div style="text-align:center; margin-bottom:10px; margin: 0 25%;">
+  <div style="text-align:center; margin-bottom:10px; margin: 0 35%;">
     <label for="month">Kuukausi:</label>
     <select id="month">
       <option value="0">Tammikuu</option>
