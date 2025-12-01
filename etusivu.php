@@ -51,8 +51,8 @@
       <option value="7">Elokuu</option>
       <option value="8">Syyskuu</option>
       <option value="9">Lokakuu</option>
-      <option value="10" selected>Marraskuu</option>
-      <option value="11">Joulukuu</option>
+      <option value="10">Marraskuu</option>
+      <option value="11" selected>Joulukuu</option>
     </select>
 
     <label for="year">Vuosi:</label>
