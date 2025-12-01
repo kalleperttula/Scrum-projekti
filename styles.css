@@ -38,7 +38,7 @@ h2 {
 }
 .day:hover {
   background-color: #f0f0f0;
-  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  box-shadow: 0 0 3px #87CEFA;
   transform: translateY(-2px);
 }
 .popup, .overlay {
@@ -76,7 +76,7 @@ header {
   background-color: #87CEFA; 
   color: white;
   padding: 15px 0;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
 
 header nav ul {
@@ -109,7 +109,7 @@ footer {
   padding: 20px;
   margin-top: 40px;
   font-size: 0.9em;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
 /*Pop up tyylit*/
 .overlay {
