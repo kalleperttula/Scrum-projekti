@@ -41,7 +41,7 @@
   <div style="text-align:center; margin-bottom:10px; margin: 0 35%; border-radius: 8px;">
     <label for="month">Kuukausi:</label>
     <select id="month">
-      <option value="0">Tammikuu</option>
+      <option value="0" selected>Tammikuu</option>
       <option value="1">Helmikuu</option>
       <option value="2">Maaliskuu</option>
       <option value="3">Huhtikuu</option>
@@ -52,7 +52,7 @@
       <option value="8">Syyskuu</option>
       <option value="9">Lokakuu</option>
       <option value="10">Marraskuu</option>
-      <option value="11" selected>Joulukuu</option>
+      <option value="11">Joulukuu</option>
     </select>
 
     <label for="year">Vuosi:</label>
@@ -79,7 +79,7 @@
 
   <!-- FOOTTERI -->
   <footer>
-    <p>&copy; 2025 Muistutuskalenteri.</p>
+    <p>&copy; 2026 Muistutuskalenteri.</p>
     <p>Suunnitellut: <strong>Lennu Kalle</strong></p>
     <p>
       <a href="#">Tietosuojaseloste</a>
@@ -99,7 +99,7 @@
       const opt = document.createElement("option");
       opt.value = y;
       opt.textContent = y;
-      if (y === 2025) opt.selected = true;
+      if (y === 2026) opt.selected = true;
       yearSelect.appendChild(opt);
     }
 
